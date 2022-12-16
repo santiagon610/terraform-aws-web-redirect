@@ -25,7 +25,7 @@ resource "aws_s3_bucket_website_configuration" "this" {
 }
 
 resource "aws_route53_record" "this" {
-  zone_id = Var.redirect_route53_zone_id
+  zone_id = var.redirect_route53_zone_id
   name    = local.redirect_fqdn
   type    = "CNAME"
   ttl     = 120
