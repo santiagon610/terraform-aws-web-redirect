@@ -20,19 +20,19 @@ I've tested this on 1.2, so I imagine anything from there on up should be fine. 
 ```hcl
 # Production Website
 module "webmail_redirect" {
-  source                    = "santiagon610/web-redirect"
+  # Pick the latest v0.0.x release from the registry
+  source                    = "santiagon610/web-redirect/aws"
   version                   = "~> 0.0"
-  
-  # redirect from http://webmail.example.com
-  redirect_hostname         = "webmail"
-  redirect_domain           = "example.com"
-  redirect_route53_zone_id  = data.route53_zone.example_com.zone_id
-  
-  # redirect to https://mail.example.com/webmail
-  destination_protocol      = "https"
-  destination_hostname      = "mail.example.com"
-  destination_suffix        = "webmail"
 
+  # Redirect from http://mail.example.com
+  redirect_hostname         = "mail"
+  redirect_domain           = "example.com"
+  redirect_route53_zone_id  = aws_route53_zone.example_com.zone_id
+
+  # Redirect to https://example-com.awsapps.com/mail
+  destination_protocol      = "https"
+  destination_hostname      = "example-com.awsapps.com"
+  destination_suffix        = "mail"
 }
 ```
 
@@ -42,7 +42,7 @@ module "webmail_redirect" {
 
 ## Outputs
 
-- This module does not generate any outputs.
+- This module does not generate any outputs
 
 ## Authors
 
