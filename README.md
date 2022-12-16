@@ -7,8 +7,9 @@ Based on [this article](https://www.chrisjmendez.com/2018/11/15/creating-a-subdo
 ## Features
 
 - S3 bucket
-- Redirect Policy
-- Route 53 Record
+  - Access control list (`public-read`)
+  - Website configuration with redirect policy
+- Route 53 record
 
 ## Terraform versions
 
@@ -19,8 +20,19 @@ I've tested this on 1.2, so I imagine anything from there on up should be fine. 
 ```hcl
 # Production Website
 module "webmail_redirect" {
-  source          = "santiagon610/web-redirect"
-  pizza           = "pepperoni"
+  source                    = "santiagon610/web-redirect"
+  version                   = "~> 0.0"
+  
+  # redirect from http://webmail.example.com
+  redirect_hostname         = "webmail"
+  redirect_domain           = "example.com"
+  redirect_route53_zone_id  = data.route53_zone.example_com.zone_id
+  
+  # redirect to https://mail.example.com/webmail
+  destination_protocol      = "https"
+  destination_hostname      = "mail.example.com"
+  destination_suffix        = "webmail"
+
 }
 ```
 
@@ -30,7 +42,7 @@ module "webmail_redirect" {
 
 ## Outputs
 
-- TBD
+- This module does not generate any outputs.
 
 ## Authors
 
