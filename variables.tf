@@ -44,3 +44,9 @@ variable "destination_suffix" {
   description = "Destination suffix"
   default     = ""
 }
+
+variable "skip_acl" {
+  type        = bool
+  description = "Skips creation of the ACL for accounts in which this is disallowed"
+  default     = false
+}
