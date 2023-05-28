@@ -7,7 +7,7 @@ Based on [this article](https://www.chrisjmendez.com/2018/11/15/creating-a-subdo
 ## Features
 
 - S3 bucket
-  - Access control list (`public-read`)
+  - Access control list (`public-read`) (can be disabled with `skip_acl` variable set to true)
   - Website configuration with redirect policy
 - Route 53 record
 
@@ -33,6 +33,8 @@ module "webmail_redirect" {
   destination_protocol      = "https"
   destination_hostname      = "example-com.awsapps.com"
   destination_suffix        = "mail"
+
+  skip_acl = false
 }
 ```
 
